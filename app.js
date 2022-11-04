@@ -1,12 +1,15 @@
-const express = require("express");
+import express from "express";
 const app = express();
-const connectDB = require("./db/connect");
-const path = require("path");
-require("dotenv").config();
-
+import connectDB from "./db/connect.js";
+import { join } from "path";
+import dotenv from "dotenv";
+import path from "path";
+dotenv.config();
 const PORT = process.env.PORT || 5000;
 
-app.use(express.static(path.join(__dirname, "public")));
+const __dirname = path.resolve();
+
+app.use(express.static(join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
