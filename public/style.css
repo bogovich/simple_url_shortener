@@ -131,6 +131,8 @@ main {
 
 #input-space {
   border: 1px solid white;
+  border-radius: 5px;
+  padding: 15px;
   background-color: #b8dbd98a;
   height: 20vh;
 }
