@@ -13,7 +13,7 @@ const UrlSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  clicks: {
+  hits: {
     type: Number,
     required: true,
     default: 0,
