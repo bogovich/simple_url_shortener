@@ -9,4 +9,15 @@ app.get("/", (req, res) => {
   res.send("Home");
 });
 
-app.listen(PORT, () => console.log(`server started, listening PORT ${PORT}`));
+const start = () => {
+  try {
+    connectDB(process.env.MONGO_URI);
+    app.listen(PORT, () =>
+      console.log(`server started, listening PORT ${PORT}`)
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();
