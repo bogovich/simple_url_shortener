@@ -7,8 +7,8 @@ require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(Express.urlencoded({ extended: true }));
-app.use(Express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 const start = () => {
   try {
