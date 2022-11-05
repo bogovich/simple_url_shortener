@@ -4,6 +4,7 @@ import connectDB from "./db/connect.js";
 import { join } from "path";
 import dotenv from "dotenv";
 import path from "path";
+import { urlRouter } from "./routes/urls.js";
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 
@@ -13,6 +14,7 @@ app.use(express.static(join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use("/api", urlRouter);
 const start = () => {
   try {
     connectDB(process.env.MONGO_URI);
