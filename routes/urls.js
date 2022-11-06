@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { shortenUrl } from "../controllers/urls.js";
+import { shortenUrl, redirectURL } from "../controllers/urls.js";
 const router = Router();
-router.route("/").post(shortenUrl);
+router.route("/api").post(shortenUrl);
+router.route("/:urlId").get(redirectURL);
 
 export { router as urlRouter };

@@ -5,10 +5,10 @@ import { nanoid } from "nanoid";
 const shortenUrl = async (req, res) => {
   const { origUrl } = req.body;
 
-  const exists = await urlExist("https://google.com");
+  const exists = await urlExist(origUrl);
 
   if (!exists) {
-    return res.status(401).json("Invalid base URL");
+    return res.status(401).json("Invalid URL");
   }
   try {
     let url = await URL.findOne({ origUrl });
@@ -28,4 +28,33 @@ const shortenUrl = async (req, res) => {
   }
 };
 
-export { shortenUrl };
+const redirectURL = async (req, res) => {
+  const urlId = req.params.urlId;
+  try {
+    const url = await URL.findOne({ urlId });
+    if (url) {
+      await URL.updateOne({ urlId: urlId }, { $inc: { hits: 1 } });
+      return res.redirect(url.origUrl);
+    } else {
+      console.log(urlId);
+      res.status(404).json(`NOT FOUND`);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("Server error");
+  }
+};
+
+/*
+const redirectOrCreate = async (req, res) => {
+  const { urlId } = req.params.urlId;
+  const exists = await urlExist(urlId);
+  if (!exists) {
+    redirectURL(req, res, urlId);
+  }
+
+  shortenUrl;
+};
+*/
+
+export { shortenUrl, redirectURL };
