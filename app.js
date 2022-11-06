@@ -14,7 +14,7 @@ app.use(express.static(join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("/api", urlRouter);
+app.use("/", urlRouter);
 const start = () => {
   try {
     connectDB(process.env.MONGO_URI);
