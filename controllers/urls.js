@@ -45,16 +45,4 @@ const redirectURL = async (req, res) => {
   }
 };
 
-/*
-const redirectOrCreate = async (req, res) => {
-  const { urlId } = req.params.urlId;
-  const exists = await urlExist(urlId);
-  if (!exists) {
-    redirectURL(req, res, urlId);
-  }
-
-  shortenUrl;
-};
-*/
-
 export { shortenUrl, redirectURL };
