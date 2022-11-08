@@ -128,15 +128,6 @@ main {
   gap: 15px;
   justify-items: center;
 }
-
-#input-space {
-  border: 1px solid white;
-  border-radius: 5px;
-  padding: 15px;
-  background-color: #b8dbd98a;
-  height: 20vh;
-}
-
 form {
   display: grid;
   justify-items: center;
@@ -146,6 +137,71 @@ input {
   width: 40vw;
 }
 
+#input-space {
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 15px;
+  background-color: #b8dbd98a;
+  height: 13vh;
+}
+
+#result-space {
+  opacity: 0;
+  display: flex;
+  flex-flow: row wrap;
+  height: 15vh;
+  gap: 30px;
+  align-items: center;
+}
+
+#main-result-space {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 25px;
+  margin-top: 20px;
+  border: 2px solid #b8dbd98a;
+  border-radius: 5px;
+  padding: 10px;
+  justify-content: center;
+}
+
+#extra-button-space {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-content: center;
+  gap: 15px;
+}
+
+#qr-space {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-content: center;
+}
+
+#shortlink-space {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+  align-content: center;
+  gap: 5px;
+}
+
+.short-link {
+  border: 3px solid black;
+  background: white;
+  color: black;
+  padding: 5px;
+  font-size: 18px;
+}
+
+#link-text {
+  font-weight: bold;
+  text-decoration: underline;
+  text-align: center;
+  font-size: 28px;
+}
 footer {
   grid-area: footer;
   display: flex;
