@@ -120,6 +120,9 @@ nav ul li a:hover {
   background: #cfd6dd;
 }
 
+.btn {
+  cursor: pointer;
+}
 main {
   grid-area: main;
   display: grid;
@@ -211,4 +214,9 @@ footer {
   font-size: 1.24em;
   background: #f4f4f9;
   color: #021b24;
+}
+
+#download-el {
+  text-decoration: none;
+  color: black;
 }

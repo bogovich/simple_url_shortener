@@ -3,6 +3,8 @@ const shortEl = document.querySelector(".short-link");
 const qrImageEl = document.querySelector(".qr-image");
 const resultEl = document.querySelector("#result-space");
 const clearBtn = document.querySelector("#clear-btn");
+const downloadEl = document.querySelector("#download-el");
+const copyBtn = document.querySelector("#copy-btn");
 
 const submitURL = async () => {
   let url = document.querySelector("#URL").value;
@@ -28,9 +30,24 @@ const clearFields = () => {
   resultEl.style.opacity = 0;
 };
 
+const copyContent = async () => {
+  try {
+    await navigator.clipboard.writeText(shortEl.textContent);
+    window.alert("Short link copied to clipboard!");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
   submitURL();
 });
 
 clearBtn.addEventListener("click", clearFields);
+
+downloadEl.addEventListener("click", () => {
+  downloadEl.setAttribute("href", qrImageEl.src);
+});
+
+copyBtn.addEventListener("click", copyContent);
