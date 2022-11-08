@@ -2,6 +2,7 @@ const formEl = document.querySelector("#form");
 const shortEl = document.querySelector(".short-link");
 const qrImageEl = document.querySelector(".qr-image");
 const resultEl = document.querySelector("#result-space");
+const clearBtn = document.querySelector("#clear-btn");
 
 const submitURL = async () => {
   let url = document.querySelector("#URL").value;
@@ -21,7 +22,15 @@ const submitURL = async () => {
     });
 };
 
+const clearFields = () => {
+  let url = document.querySelector("#URL");
+  url.value = "";
+  resultEl.style.opacity = 0;
+};
+
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
   submitURL();
 });
+
+clearBtn.addEventListener("click", clearFields);
