@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script
+      src="https://kit.fontawesome.com/95dd7bba48.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="style.css" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -35,11 +39,25 @@
           </form>
         </section>
         <section id="result-space">
-          <h3 id="link-text">Shortened Link</h3>
-          <div class="qr-section"><img class="qr-image" src="" /></div>
-          <div class="short-link"></div>
-          <button class="result-btn">Generate new!</button>
-          <button class="result-btn">Delete short link!</button>
+          <div id="main-result-space">
+            <div id="qr-space">
+              <div class="qr-section"><img class="qr-image" src="" /></div>
+              <button class="btn">
+                <i class="fa fa-download"></i> Download
+              </button>
+            </div>
+            <div id="shortlink-space">
+              <h3 id="link-text">Shortened Link</h3>
+              <div class="short-link"></div>
+              <button class="btn">
+                <i class="fa-sharp fa-solid fa-clipboard"></i> Copy!
+              </button>
+            </div>
+          </div>
+          <div id="extra-button-space">
+            <button class="result-btn">Generate new!</button>
+            <button class="result-btn">Delete short link!</button>
+          </div>
         </section>
       </main>
       <footer>PKB2022</footer>
