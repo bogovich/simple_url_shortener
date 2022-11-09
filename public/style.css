@@ -127,10 +127,16 @@ main {
   grid-area: main;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 100px auto 1fr;
-  gap: 15px;
+  grid-template-rows: 100px 13vh 1fr;
+  gap: 35px;
   justify-items: center;
+  justify-content: center;
 }
+
+h1 {
+  text-align: center;
+}
+
 form {
   display: grid;
   justify-items: center;
@@ -155,6 +161,7 @@ input {
   height: 15vh;
   gap: 30px;
   align-items: center;
+  justify-content: center;
 }
 
 #main-result-space {
@@ -169,11 +176,12 @@ input {
 }
 
 #extra-button-space {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-content: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 15px;
+  align-items: center;
+  justify-content: center;
 }
 
 #qr-space {
