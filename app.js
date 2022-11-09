@@ -5,11 +5,13 @@ import { join } from "path";
 import dotenv from "dotenv";
 import path from "path";
 import { urlRouter } from "./routes/urls.js";
+import logger from "morgan";
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 const __dirname = path.resolve();
 
+app.use(logger("tiny"));
 app.use(express.static(join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
