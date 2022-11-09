@@ -2,9 +2,9 @@ import URL from "../models/urlModel.js";
 import urlExist from "url-exist";
 import { nanoid } from "nanoid";
 import QRCode from "qrcode";
-import { qrUpload } from "./s3.js";
+import { qrUpload, qrDelete } from "./s3.js";
 
-const shortenUrl = async (req, res) => {
+const shortenURL = async (req, res) => {
   const { origUrl } = req.body;
 
   const exists = await urlExist(origUrl);
@@ -79,4 +79,23 @@ const generateQrUploadData = async (shortUrl, urlId) => {
   return qrData;
 };
 
-export { shortenUrl, redirectURL };
+const deleteURL = async (req, res) => {
+  const { urlId } = req.body;
+  try {
+    const delUrl = await URL.findOneAndDelete({ urlId });
+    if (!delUrl) res.status(404).json(`MONGODB - NOT FOUND`);
+    if (delUrl) {
+      const qrDel = await qrDelete({
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: `${urlId}.png`,
+      });
+      if (!qrDel) res.status(404).json(`AWS S3 - NOT FOUND`);
+    }
+    res.status(200).json({ delUrl });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Server error");
+  }
+};
+
+export { shortenURL, redirectURL, deleteURL };
