@@ -21,7 +21,7 @@ const submitURL = async () => {
     .then((data) => {
       shortEl.textContent = data.shortUrl;
       qrImageEl.src = data.qrUrl;
-      resultEl.style.opacity = 1;
+      resultEl.style.display = "flex";
     });
 };
 
@@ -40,7 +40,7 @@ const deleteURL = async () => {
     })
     .then((data) => {
       window.alert(`Short link has been deleted from DB.`);
-      resultEl.style.opacity = 0;
+      resultEl.style.display = "none";
       let url = document.querySelector("#URL");
       url.value = "";
     });
@@ -49,7 +49,7 @@ const deleteURL = async () => {
 const clearFields = () => {
   let url = document.querySelector("#URL");
   url.value = "";
-  resultEl.style.opacity = 0;
+  resultEl.style.display = "none";
 };
 
 const copyContent = async () => {
