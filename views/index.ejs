@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('components/head') %>
+  <body>
+    <section id="layout">
+      <%- include('components/navbar') %>
+      <main>
+        <h1>URL SHORTENER</h1>
+        <section id="input-space">
+          <form id="form">
+            <input
+              type="text"
+              name="URL"
+              id="URL"
+              value=""
+              placeholder="Enter a URL to shorten."
+              required
+              autocomplete="off"
+            />
+            <br />
+            <button type="submit" id="submit-btn" class="btn">Shorten!</button>
+          </form>
+        </section>
+        <section id="result-space">
+          <div id="main-result-space">
+            <div id="qr-space">
+              <div class="qr-section"><img class="qr-image" src="" /></div>
+              <button id="download-btn" class="btn">
+                <i class="fa fa-download"></i>
+                <a id="download-el" href="" download> Download</a>
+              </button>
+            </div>
+            <div id="shortlink-space">
+              <h3 id="link-text">Shortened Link</h3>
+              <div class="short-link"></div>
+              <button id="copy-btn" class="btn">
+                <i class="fa-sharp fa-solid fa-clipboard"></i> Copy!
+              </button>
+            </div>
+          </div>
+          <div id="extra-button-space">
+            <button id="clear-btn" class="btn">Clear results!</button>
+            <button id="delete-btn" class="btn">Delete short link!</button>
+          </div>
+        </section>
+      </main>
+      <%- include('components/footer') %>
+    </section>
+    <script src="script.js"></script>
+  </body>
+</html>
