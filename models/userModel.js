@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import { passwordReg } from "../validations/user";
+import { passwordReg } from "../validations/user.js";
 
 const UserSchema = new mongoose.Schema(
   {
