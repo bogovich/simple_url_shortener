@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { urlRouter } from "./routes/urls.js";
 import { indexRouter } from "./routes/index.js";
+import { authRouter } from "./routes/auth.js";
 import logger from "morgan";
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -21,6 +22,8 @@ app.use(express.json());
 
 app.use("/", urlRouter);
 app.use("/", indexRouter);
+app.use("/", authRouter);
+
 const start = () => {
   try {
     connectDB(process.env.MONGO_URI);
