@@ -4,19 +4,25 @@
   <body>
     <section id="layout">
       <%- include('components/navbar') %>
-      <main>
-        <h1>URL SHORTENER</h1>
-        <section id="input-space">
-          <form id="form">
+      <main id="home-page">
+        <div id="intro-section">
+          <h1>URL SHORTENER</h1>
+          <h3><% if(user){ %> Welcome <%= user.username %><% } %></h3>
+        </div>
+        <section class="border-space">
+          <form id="url-form">
             <input
-              type="text"
+              type="url"
+              pattern="(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?"
               name="URL"
               id="URL"
               value=""
-              placeholder="Enter a URL to shorten."
+              placeholder="Enter a URL to shorten. (http/https)"
               required
               autocomplete="off"
             />
+            <br />
+            <div id="error-div"></div>
             <br />
             <button type="submit" id="submit-btn" class="btn">Shorten!</button>
           </form>
@@ -40,7 +46,7 @@
           </div>
           <div id="extra-button-space">
             <button id="clear-btn" class="btn">Clear results!</button>
-            <button id="delete-btn" class="btn">Delete short link!</button>
+            <button id="pub-delete" class="btn">Delete short link!</button>
           </div>
         </section>
       </main>
