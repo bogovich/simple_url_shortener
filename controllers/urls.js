@@ -9,8 +9,16 @@ const shortenURL = async (req, res) => {
 
   const exists = await urlExist(origUrl);
 
+  let author;
+  if (req.user) {
+    author = req.user.username;
+  } else {
+    author = "public";
+  }
+  //const author = req.user.username || "public";
+
   if (!exists) {
-    return res.status(401).json("Invalid URL");
+    return res.status(404).json("Invalid URL");
   }
   try {
     let url = await URL.findOne({ origUrl });
@@ -18,7 +26,7 @@ const shortenURL = async (req, res) => {
     if (url) {
       res.json(url);
     } else {
-      const urlId = nanoid(7);
+      const urlId = nanoid(6);
       const shortUrl = `${process.env.BASE}/${urlId}`;
       const qrData = await generateQrUploadData(shortUrl, urlId);
       const data = await qrUpload(qrData);
@@ -28,7 +36,8 @@ const shortenURL = async (req, res) => {
         shortUrl,
         urlId,
         qrUrl,
-        date: new Date(),
+        date: new Date().toLocaleString(),
+        createdBy: author,
       });
       await url.save();
       res.json(url);
@@ -81,21 +90,63 @@ const generateQrUploadData = async (shortUrl, urlId) => {
 
 const deleteURL = async (req, res) => {
   const { urlId } = req.body;
+
+  let userAuth;
+  if (req.user) {
+    userAuth = req.user.username;
+  } else {
+    userAuth = "public";
+  }
   try {
-    const delUrl = await URL.findOneAndDelete({ urlId });
-    if (!delUrl) res.status(404).json(`MONGODB - NOT FOUND`);
-    if (delUrl) {
-      const qrDel = await qrDelete({
-        Bucket: process.env.AWS_BUCKET_NAME,
-        Key: `${urlId}.png`,
-      });
-      if (!qrDel) res.status(404).json(`AWS S3 - NOT FOUND`);
+    const urlInfo = await URL.findOne({ urlId });
+
+    if (urlInfo.createdBy === userAuth) {
+      const delUrl = await URL.findOneAndDelete({ urlId });
+      if (!delUrl) res.status(404).json(`MONGODB - NOT FOUND`);
+      if (delUrl) {
+        const qrDel = await qrDelete({
+          Bucket: process.env.AWS_BUCKET_NAME,
+          Key: `${urlId}.png`,
+        });
+        if (!qrDel) res.status(404).json(`AWS S3 - NOT FOUND`);
+      }
+      res.status(200).json({ delUrl });
+    } else {
+      res.status(401).json(`Not authorized to delete.`);
     }
-    res.status(200).json({ delUrl });
   } catch (error) {
     console.error(error);
     res.status(500).json("Server error");
   }
 };
 
-export { shortenURL, redirectURL, deleteURL };
+const getUserURLS = async (req, res) => {
+  const { username } = req.body;
+  try {
+    const userURLS = await URL.find({ createdBy: username }).select(
+      "urlId origUrl shortUrl hits qrUrl date -_id"
+    );
+    if (!userURLS.length) {
+      returnres.status(404).json(`URLs made by ${username} not found.`);
+    }
+    if (userURLS.length) {
+      res.json(userURLS);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Server error");
+  }
+};
+
+const localGetURLS = async (username) => {
+  try {
+    let userURLS = await URL.find({ createdBy: username }).select(
+      "urlId origUrl shortUrl hits qrUrl date -_id"
+    );
+    return userURLS.length ? userURLS : [];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { shortenURL, redirectURL, deleteURL, getUserURLS, localGetURLS };
