@@ -26,6 +26,10 @@ const UrlSchema = new mongoose.Schema({
     type: String,
     default: Date.now,
   },
+  createdBy: {
+    type: String,
+    default: "public",
+  },
 });
 
 export default mongoose.model("Url", UrlSchema);
