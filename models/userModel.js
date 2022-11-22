@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import { passwordReg } from "../validations/user.js";
+import { passwordReg } from "../helper/password-validation.js";
 import bcrypt from "bcrypt";
 
 const UserSchema = new mongoose.Schema(
@@ -40,9 +40,6 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: Date.now,
     },
-    salt: {
-      type: String,
-    },
   },
   { collection: "users" }
 );
@@ -54,15 +51,18 @@ UserSchema.pre("save", async function (next) {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(this.password, salt);
     this.password = hashedPassword;
-    this.salt = salt;
     next();
   } catch (error) {
     return next(error);
   }
 });
 
-UserSchema.methods.validPassword = async (password) => {
-  return await bcrypt.compare(password, this.local.password);
+UserSchema.methods.validPassword = async function (password) {
+  try {
+    return await bcrypt.compare(password, this.password);
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 export default mongoose.model("User", UserSchema);
