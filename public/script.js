@@ -1,11 +1,30 @@
-const formEl = document.querySelector("#form");
+const formEl = document.querySelector("#url-form");
 const shortEl = document.querySelector(".short-link");
 const qrImageEl = document.querySelector(".qr-image");
 const resultEl = document.querySelector("#result-space");
 const clearBtn = document.querySelector("#clear-btn");
 const downloadEl = document.querySelector("#download-el");
 const copyBtn = document.querySelector("#copy-btn");
-const deleteBtn = document.querySelector("#delete-btn");
+const deleteBtn = document.querySelector("#pub-delete");
+const errorDiv = document.querySelector("#error-div");
+const shortLinks = Array.from(document.querySelectorAll(".shortlinks"));
+let shortLinksValues = shortLinks.map((item) => item.href);
+
+document.addEventListener("click", async function (event) {
+  if (event.target.matches(".priv-del")) {
+    deleteURL(event.target.id);
+    this.location.reload(true);
+  }
+
+  if (event.target.matches(".priv-copy")) {
+    const match = shortLinksValues.find((el) => {
+      if (el.includes(event.target.id)) {
+        return true;
+      }
+    });
+    copyContent(match);
+  }
+});
 
 const submitURL = async () => {
   let url = document.querySelector("#URL").value;
@@ -16,19 +35,31 @@ const submitURL = async () => {
     body: JSON.stringify({ origUrl: url }),
   })
     .then((response) => {
-      return response.json();
+      if (response.status === 200) {
+        return response.json();
+      } else if (response.status === 404) {
+        errorDiv.textContent = "Invalid URL. Please try another.";
+      } else {
+        errorDiv.textContent = "Server Error. Please try again later.";
+      }
     })
     .then((data) => {
       shortEl.textContent = data.shortUrl;
       qrImageEl.src = data.qrUrl;
       resultEl.style.display = "flex";
+      errorDiv.textContent = "";
     });
 };
 
-const deleteURL = async () => {
-  const shortUrl = shortEl.textContent.split("/");
-  console.log(shortUrl);
-  const urlId = shortUrl[shortUrl.length - 1];
+const deleteURL = async (inputId = "") => {
+  let urlId;
+  if (!inputId) {
+    const shortUrl = shortEl.textContent.split("/");
+    console.log(shortUrl);
+    urlId = shortUrl[shortUrl.length - 1];
+  } else {
+    urlId = inputId;
+  }
 
   const response = await fetch("http://localhost:5000/api/", {
     headers: { "Content-Type": "application/json" },
@@ -40,9 +71,11 @@ const deleteURL = async () => {
     })
     .then((data) => {
       window.alert(`Short link has been deleted from DB.`);
-      resultEl.style.display = "none";
-      let url = document.querySelector("#URL");
-      url.value = "";
+      if (!inputId) {
+        resultEl.style.display = "none";
+        let url = document.querySelector("#URL");
+        url.value = "";
+      }
     });
 };
 
@@ -52,9 +85,14 @@ const clearFields = () => {
   resultEl.style.display = "none";
 };
 
-const copyContent = async () => {
+const copyContent = async (text = "") => {
   try {
-    await navigator.clipboard.writeText(shortEl.textContent);
+    if (!text) {
+      await navigator.clipboard.writeText(shortEl.textContent);
+    } else {
+      await navigator.clipboard.writeText(text);
+    }
+
     window.alert("Short link copied to clipboard!");
   } catch (error) {
     console.error(error);
@@ -74,4 +112,6 @@ downloadEl.addEventListener("click", () => {
 
 copyBtn.addEventListener("click", copyContent);
 
-deleteBtn.addEventListener("click", deleteURL);
+deleteBtn.addEventListener("click", function () {
+  deleteURL();
+});
