@@ -15,22 +15,6 @@ let template_table_header = {
     { "<>": "th", html: "Delete short URL" },
   ],
 };
-/*
-let template_table_body = {
-  "<>": "tr",
-  html: [
-    { "<>": "td", html: "${urlId}" },
-    { "<>": "td", html: "${origUrl}" },
-    {
-      "<>": "td",
-      html: [{ "<>": "a", href: "${shortUrl}", text: "${shortUrl}" }],
-    },
-    { "<>": "td", html: "${hits}" },
-    { "<>": "td", html: "${qrUrl}" },
-    { "<>": "td", html: "${date}" },
-  ],
-};
-*/
 
 let template_table_body = {
   "<>": "tr",
@@ -73,7 +57,7 @@ let template_table_body = {
         },
       ],
     },
-    { "<>": "td", label: "Hits", html: "${hits}" },
+    { "<>": "td", class: "td-hits", label: "Hits", html: "${hits}" },
     {
       "<>": "td",
       label: "Download QR",
