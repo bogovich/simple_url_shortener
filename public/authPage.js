@@ -18,7 +18,7 @@ document.addEventListener("click", async function (event) {
 });
 
 const deleteURL = async (urlId) => {
-  const response = await fetch("http://localhost:5000/api/", {
+  const response = await fetch("https://url-short-m6r5.onrender.com/api/", {
     headers: { "Content-Type": "application/json" },
     method: "DELETE",
     body: JSON.stringify({ urlId }),

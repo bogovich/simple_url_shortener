@@ -11,7 +11,7 @@ const errorDiv = document.querySelector("#error-div");
 const submitURL = async () => {
   let url = document.querySelector("#URL").value;
 
-  const response = await fetch("http://localhost:5000/api/", {
+  const response = await fetch("https://url-short-m6r5.onrender.com/api/", {
     headers: { "Content-Type": "application/json" },
     method: "POST",
     body: JSON.stringify({ origUrl: url }),
@@ -37,7 +37,7 @@ const deleteURL = async () => {
   const shortUrl = shortEl.textContent.split("/");
   urlId = shortUrl[shortUrl.length - 1];
 
-  const response = await fetch("http://localhost:5000/api/", {
+  const response = await fetch("https://url-short-m6r5.onrender.com/api/", {
     headers: { "Content-Type": "application/json" },
     method: "DELETE",
     body: JSON.stringify({ urlId }),
