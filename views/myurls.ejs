@@ -10,7 +10,14 @@
           <h3><% if(user){ %> Welcome <%= user.username %><% } %></h3>
         </div>
         <section class="border-space">
-          <div id="url-table"><%- jDataHTML %></div>
+          <div id="url-table">
+            <% if(jDataHTML.length===0){ %> <%- jDataHTML %> <% } else {%>
+            <span id="please-add"
+              >Please shorten some URLS to automatically add them to this
+              table.</span
+            >
+            <% }%>
+          </div>
         </section>
         <section id="result-space"></section>
       </main>
