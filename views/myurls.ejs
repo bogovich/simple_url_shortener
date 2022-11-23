@@ -11,11 +11,11 @@
         </div>
         <section class="border-space">
           <div id="url-table">
-            <% if(jDataHTML.length===0){ %> <%- jDataHTML %> <% } else {%>
+            <% if(jDataHTML){ %> <%- jDataHTML %> <% }
+            else {%>
             <span id="please-add"
               >Please shorten some URLS to automatically add them to this
-              table.</span
-            >
+              table.</span>
             <% }%>
           </div>
         </section>
@@ -23,6 +23,6 @@
       </main>
       <%- include('components/footer') %>
     </section>
-    <script src="script.js"></script>
+    <script src="authPage.js"></script>
   </body>
 </html>

@@ -7,29 +7,11 @@ const downloadEl = document.querySelector("#download-el");
 const copyBtn = document.querySelector("#copy-btn");
 const deleteBtn = document.querySelector("#pub-delete");
 const errorDiv = document.querySelector("#error-div");
-const shortLinks = Array.from(document.querySelectorAll(".shortlinks"));
-let shortLinksValues = shortLinks.map((item) => item.href);
-
-document.addEventListener("click", async function (event) {
-  if (event.target.matches(".priv-del")) {
-    deleteURL(event.target.id);
-    this.location.reload(true);
-  }
-
-  if (event.target.matches(".priv-copy")) {
-    const match = shortLinksValues.find((el) => {
-      if (el.includes(event.target.id)) {
-        return true;
-      }
-    });
-    copyContent(match);
-  }
-});
 
 const submitURL = async () => {
   let url = document.querySelector("#URL").value;
 
-  const response = await fetch("https://url-short-m6r5.onrender.com/api/", {
+  const response = await fetch("http://localhost:5000/api/", {
     headers: { "Content-Type": "application/json" },
     method: "POST",
     body: JSON.stringify({ origUrl: url }),
@@ -51,17 +33,11 @@ const submitURL = async () => {
     });
 };
 
-const deleteURL = async (inputId = "") => {
-  let urlId;
-  if (!inputId) {
-    const shortUrl = shortEl.textContent.split("/");
-    console.log(shortUrl);
-    urlId = shortUrl[shortUrl.length - 1];
-  } else {
-    urlId = inputId;
-  }
+const deleteURL = async () => {
+  const shortUrl = shortEl.textContent.split("/");
+  urlId = shortUrl[shortUrl.length - 1];
 
-  const response = await fetch("https://url-short-m6r5.onrender.com/api/", {
+  const response = await fetch("http://localhost:5000/api/", {
     headers: { "Content-Type": "application/json" },
     method: "DELETE",
     body: JSON.stringify({ urlId }),
@@ -85,13 +61,9 @@ const clearFields = () => {
   resultEl.style.display = "none";
 };
 
-const copyContent = async (text = "") => {
+const copyContent = async () => {
   try {
-    if (!text) {
-      await navigator.clipboard.writeText(shortEl.textContent);
-    } else {
-      await navigator.clipboard.writeText(text);
-    }
+    await navigator.clipboard.writeText(shortEl.textContent);
 
     window.alert("Short link copied to clipboard!");
   } catch (error) {
