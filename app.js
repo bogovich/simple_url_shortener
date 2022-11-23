@@ -21,6 +21,7 @@ const PORT = process.env.PORT || 5000;
 
 const __dirname = path.resolve();
 
+app.disable("x-powered-by");
 app.use(logger("dev"));
 app.use(cookieParser());
 app.set("view engine", "ejs");
