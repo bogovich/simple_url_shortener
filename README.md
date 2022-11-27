@@ -1,14 +1,28 @@
 ﻿# [URL Shortener](https://url-short-m6r5.onrender.com/)
 
 ## Project Description
+
+Simple URL shortener with QR generator for shortened links.
+
 Frontend: HTML, CSS
 Backend: Node.js
 
+As a public user:
+- Generate shortened URL with corresponding QR code
+- Delete current shortened URL
+- Copy shortened URL to clipboard
+- Register as a user
+- Login as a user
+
+As a private user:
+- Overview of all URLs shortened while logged in
+- Generate shortened URL with corresponding QR code
+- Delete current shortened URL
+- Copy shortened URL to clipboard
+
+Session-based authentication and authorization using PassportJS, sessions are hosted on MongoDB.
 
 Generated QR Code is hosted on AWS S3.
-Registered and authenticated users have an overview of all their URLS they shortened while being logged in.
-Session based authentication solved with passportjs, sessions hosted on MongoDB.
-Deployed on render.com. 
 
 Dependencies
     "@aws-sdk/client-s3": "^3.204.0",
