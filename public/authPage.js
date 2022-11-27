@@ -1,6 +1,6 @@
 const shortLinks = Array.from(document.querySelectorAll(".shortlinks"));
 let shortLinksValues = shortLinks.map((item) => item.href);
-const API_URL = "https://url-short-m6r5.onrender.com/";
+const API_URL = "https://url-short-m6r5.onrender.com/api/";
 
 document.addEventListener("click", async function (event) {
   if (event.target.matches(".priv-del")) {

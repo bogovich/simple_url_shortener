@@ -7,7 +7,7 @@ const downloadEl = document.querySelector("#download-el");
 const copyBtn = document.querySelector("#copy-btn");
 const deleteBtn = document.querySelector("#pub-delete");
 const errorDiv = document.querySelector("#error-div");
-const API_URL = "https://url-short-m6r5.onrender.com/";
+const API_URL = "https://url-short-m6r5.onrender.com/api/";
 
 const submitURL = async () => {
   let url = document.querySelector("#URL").value;
