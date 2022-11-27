@@ -7,11 +7,12 @@ const downloadEl = document.querySelector("#download-el");
 const copyBtn = document.querySelector("#copy-btn");
 const deleteBtn = document.querySelector("#pub-delete");
 const errorDiv = document.querySelector("#error-div");
+const API_URL = "https://url-short-m6r5.onrender.com/";
 
 const submitURL = async () => {
   let url = document.querySelector("#URL").value;
 
-  const response = await fetch("https://url-short-m6r5.onrender.com/api/", {
+  const response = await fetch(API_URL, {
     headers: { "Content-Type": "application/json" },
     method: "POST",
     body: JSON.stringify({ origUrl: url }),
@@ -37,7 +38,7 @@ const deleteURL = async () => {
   const shortUrl = shortEl.textContent.split("/");
   urlId = shortUrl[shortUrl.length - 1];
 
-  const response = await fetch("https://url-short-m6r5.onrender.com/api/", {
+  const response = await fetch(API_URL, {
     headers: { "Content-Type": "application/json" },
     method: "DELETE",
     body: JSON.stringify({ urlId }),
@@ -47,11 +48,10 @@ const deleteURL = async () => {
     })
     .then((data) => {
       window.alert(`Short link has been deleted from DB.`);
-      if (!inputId) {
-        resultEl.style.display = "none";
-        let url = document.querySelector("#URL");
-        url.value = "";
-      }
+
+      resultEl.style.display = "none";
+      let url = document.querySelector("#URL");
+      url.value = "";
     });
 };
 

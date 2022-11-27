@@ -1,5 +1,6 @@
 const shortLinks = Array.from(document.querySelectorAll(".shortlinks"));
 let shortLinksValues = shortLinks.map((item) => item.href);
+const API_URL = "https://url-short-m6r5.onrender.com/";
 
 document.addEventListener("click", async function (event) {
   if (event.target.matches(".priv-del")) {
@@ -18,7 +19,7 @@ document.addEventListener("click", async function (event) {
 });
 
 const deleteURL = async (urlId) => {
-  const response = await fetch("https://url-short-m6r5.onrender.com/api/", {
+  const response = await fetch(API_URL, {
     headers: { "Content-Type": "application/json" },
     method: "DELETE",
     body: JSON.stringify({ urlId }),
