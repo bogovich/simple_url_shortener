@@ -222,7 +222,6 @@ input {
   gap: 30px;
   align-items: center;
   justify-content: center;
-  margin-bottom: 5px;
 }
 
 #main-result-space {
@@ -234,7 +233,6 @@ input {
   border-radius: 5px;
   padding: 10px;
   justify-content: center;
-  margin-bottom: 5px;
 }
 
 #extra-button-space {
