@@ -295,7 +295,7 @@ footer {
 /* TABLE */
 #my_table {
   border-collapse: collapse;
-  width: 100%;
+  width: 70vw;
   margin: 25px 0;
   font-size: 0.95em;
   font-family: sans-serif;
@@ -312,6 +312,7 @@ footer {
 
 #my_table tbody td {
   border: thin solid #dddddd;
+  word-break: break-all;
 }
 
 #my_table tbody tr {
@@ -330,6 +331,7 @@ footer {
   text-decoration: none;
   color: blue;
   padding-left: 5px;
+  word-break: break-all;
 }
 
 #my_table .td-hits {
@@ -361,7 +363,7 @@ footer {
   }
 
   #my_table a {
-    white-space: pre-wrap;
+    word-break: break-all;
   }
   #my_table td::before {
     content: attr(label);
