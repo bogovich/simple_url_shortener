@@ -2,7 +2,7 @@
 
 ## Project Description
 
-Simple URL shortener with QR generator for shortened links.
+Simple URL shortener with QR generator for shortened links. Hosted on Render.
 
 As a public user:
 - Generate shortened URL with corresponding QR code
